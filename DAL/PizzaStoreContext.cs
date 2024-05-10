@@ -1,7 +1,7 @@
 using BlazingPizzaNavigation.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazingPizzaNavigation;
+namespace BlazingPizzaNavigation.DAL;
 
 public class PizzaStoreContext : DbContext
 {

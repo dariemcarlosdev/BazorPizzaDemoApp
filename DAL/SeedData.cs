@@ -1,6 +1,6 @@
 using BlazingPizzaNavigation.Model;
 
-namespace BlazingPizzaNavigation;
+namespace BlazingPizzaNavigation.DAL;
 
 public static class SeedData
 {

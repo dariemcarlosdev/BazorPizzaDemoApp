@@ -1,8 +1,9 @@
+using BlazingPizzaNavigation.DAL;
 using BlazingPizzaNavigation.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazingPizzaNavigation;
+namespace BlazingPizzaNavigation.Controllers;
 
 [Route("specials")]
 [ApiController]

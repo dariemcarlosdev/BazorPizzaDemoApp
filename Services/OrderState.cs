@@ -1,6 +1,6 @@
 using BlazingPizzaNavigation.Model;
 
-namespace BlazingPizzaNavigation;
+namespace BlazingPizzaNavigation.Services;
 
 public class OrderState
 {
