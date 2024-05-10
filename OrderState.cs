@@ -1,4 +1,6 @@
-namespace BlazingPizza;
+using BlazingPizzaNavigation.Model;
+
+namespace BlazingPizzaNavigation;
 
 public class OrderState
 {
@@ -38,7 +40,7 @@ public class OrderState
     {
         Order.Pizzas.Remove(pizza);
     }
-    
+
     public void ResetOrder()
     {
     }

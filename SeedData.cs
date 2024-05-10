@@ -1,4 +1,6 @@
-namespace BlazingPizza;
+using BlazingPizzaNavigation.Model;
+
+namespace BlazingPizzaNavigation;
 
 public static class SeedData
 {

@@ -1,4 +1,4 @@
-﻿namespace BlazingPizza;
+﻿namespace BlazingPizzaNavigation.Model;
 
 public class Order
 {

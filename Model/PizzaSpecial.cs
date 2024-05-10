@@ -1,4 +1,4 @@
-﻿namespace BlazingPizza;
+﻿namespace BlazingPizzaNavigation.Model;
 
 /// <summary>
 /// Represents a pre-configured template for a pizza a user can order
