@@ -46,7 +46,7 @@
         var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "api/orders", OrderState.Order);
         var OrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/myorders");
     }
 
 }
