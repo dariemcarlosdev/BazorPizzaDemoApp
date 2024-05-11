@@ -11,10 +11,14 @@ public class OrderWithStatus
 
     public bool IsDelivered => StatusText == "Delivered";
 
+    /// <summary>
+    /// To simulate a real backend process, we fake status updates based on the amount of time since the order was placed
+    /// </summary>
+    /// <param name="order"></param>
+    /// <returns></returns>
     public static OrderWithStatus FromOrder(Order order)
     {
-        // To simulate a real backend process, we fake status updates based on the amount
-        // of time since the order was placed
+   
         string statusText;
         var dispatchTime = order.CreatedTime.Add(PreparationDuration);
 
