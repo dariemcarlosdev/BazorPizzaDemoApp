@@ -12,7 +12,7 @@
     else if (!orderWithStatuses.Any())
     {
         <h2>No orders placed</h2>
-        <a class="btn btn-success" href="">Order some pizza</a>
+        <a class="btn btn-success" href="/">Order some pizza</a>
     }
     else
     {
@@ -46,6 +46,7 @@
 
 @code{
 
+   // new List OrderWithStatus as ComponentBase Paramenter.
     List<OrderWithStatus> orderWithStatuses = [];
 
     /// <summary>
