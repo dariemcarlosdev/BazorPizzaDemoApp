@@ -43,7 +43,7 @@
     {
         @* The preceding code will disable the Place order button, post JSON that will be added to pizza.db, clear the order, and use NavigationManager to redirect customers to the home page. *@
         isSubmitting = true;
-        var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "api/orders", OrderState.Order);
+        var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "orders", OrderState.Order);
         var OrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
         NavigationManager.NavigateTo("/myorders");

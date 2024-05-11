@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace BlazingPizzaNavigation.Controllers
 {
-    [Route("api/orders")]
+    [Route("orders")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
@@ -23,12 +23,12 @@ namespace BlazingPizzaNavigation.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderWithStatus>>> GetOrders()
         {
-            var orders = dbContext.Orders
+            var orders = await dbContext.Orders
                 .Include(o => o.Pizzas).ThenInclude(p => p.Special)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Toppings).ThenInclude(t => t.Topping)
-                .OrderByDescending(o => o.CreatedTime).ToHashSet();
+                .OrderByDescending(o => o.CreatedTime).ToListAsync();
             // This is a LINQ Select query that applies the OrderWithStatus.FromOrder(o) method to each Order object in the orders collection.
-            return orders.Select(o => OrderWithStatus.FromOrder(o)).ToList();
+            return orders.Select(o => OrderWithStatus.FromOrder(o)).ToHashSet();
             
         }
 
