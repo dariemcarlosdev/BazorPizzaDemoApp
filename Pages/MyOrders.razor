@@ -1,0 +1,63 @@
+﻿@page "/MyOrders"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<TopBar/>
+
+<div class="main">
+    @if (orderWithStatuses == null)
+    {
+        <text>Loading...</text>
+    }
+    else if (!orderWithStatuses.Any())
+    {
+        <h2>No orders placed</h2>
+        <a class="btn btn-success" href="">Order some pizza</a>
+    }
+    else
+    {
+        <div class="list-group orders-list">
+            @foreach (var orderStatus in orderWithStatuses)
+            {
+                <div class="list-group-item">
+                    <div class="col">
+                        <h5>@orderStatus.Order.CreatedTime.ToLongDateString()</h5>
+                        Items:
+                        <strong>@orderStatus.Order.Pizzas.Count()</strong>;
+                        Total price:
+                        <strong>£@orderStatus.Order.GetFormattedTotalPrice()</strong>
+                    </div>
+                    <div class="col">
+                        Status: <strong>@orderStatus.StatusText</strong>
+                    </div>
+                    @if (@orderStatus.StatusText != "Delivered")
+                    {
+                        <div class="col flex-grow-0">
+                            <a href="myorders/" class="btn btn-success">
+                                Track &gt;
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code{
+
+    List<OrderWithStatus> orderWithStatuses = [];
+
+    /// <summary>
+    /// Component-lifecycle: This method will be executed immediately after OnInitializedAsync if this is a new instance of a component.
+    /// If it is an existing component that is being re-rendered because its parent is re-rendering then the OnInitialized* methods will not be executed, 
+    /// and this method will be executed immediately after SetParametersAsync instead.
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
+    {
+        orderWithStatuses = await HttpClient.GetFromJsonAsync<List<OrderWithStatus>>($"{NavigationManager.BaseUri}orders");
+
+    }
+}
+
