@@ -7,7 +7,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddSqlite<PizzaStoreContext>("Data Source=pizza.db");
-builder.Services.AddScoped<OrderState>();
+builder.Services.AddScoped<OrderStateService>();
 
 var app = builder.Build();
 
