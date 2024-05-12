@@ -12,3 +12,10 @@
 @using BlazingPizzaNavigation.Model
 @using BlazingPizzaNavigation.Pages
 @using BlazingPizzaNavigation.Services
+@* 
+NOTE:Don't add a @layout directive to the _Imports.razor file in the root folder of your project because that results in an infinite loop of layouts.Create an _Imports.razor file into folder containing Components sharing same layout and apply directive on it.
+
+To apply a template to all the Blazor components in a folder, you can use the _Imports.razor file as a shortcut.
+When the Blazor compiler finds this file, it includes its directives in all the components in the folder automatically. 
+This technique removes the need to add the @layout directive to every component and applies to components in the same folder as the _Imports.razor file and all its subfolders.
+*@
