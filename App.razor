@@ -1,11 +1,11 @@
 ﻿<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
     <Found Context="routeData">
         @* Components that have a layout specified in their own @layout directive, or in an _Imports.razor file, will override this default layout setting. *@
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(Shared.BlazzingPizzaMainLayout)" />
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(Shared.CurrentMainLayout)" />
     </Found>
     <NotFound>
-        <LayoutView >
-            <p>Sorry, there's nothing at this address.</p>
+        <LayoutView Layout="@typeof(Shared.CurrentMainLayout)">
+            <div class="main">Sorry, there's nothing at this address.</div>
         </LayoutView>
     </NotFound>
 </Router>
