@@ -33,7 +33,9 @@
                     @if (@orderStatus.StatusText != "Delivered")
                     {
                         <div class="col flex-grow-0">
-                            <a href="myorders/" class="btn btn-success">
+                            @* Updating Trank order button aiming to route to the component OrderDetails"*@
+                            @* <a href="myorders/" class="btn btn-success"> *@
+                            <a href="myorders/@orderStatus.Order.OrderId" class="btn btn-success">
                                 Track &gt;
                             </a>
                         </div>
@@ -46,12 +48,13 @@
 
 @code{
 
-  
+
     List<OrderWithStatus> orderWithStatuses = [];
 
     /// <summary>
+    /// Method invoked when the component has received parameters from its parent in the render tree, and the incoming values have been assigned to properties.
     /// Component-lifecycle: This method will be executed immediately after OnInitializedAsync if this is a new instance of a component.
-    /// If it is an existing component that is being re-rendered because its parent is re-rendering then the OnInitialized* methods will not be executed, 
+    /// If it is an existing component that is being re-rendered because its parent is re-rendering then the OnInitialized* methods will not be executed,
     /// and this method will be executed immediately after SetParametersAsync instead.
     /// </summary>
     /// <returns></returns>
