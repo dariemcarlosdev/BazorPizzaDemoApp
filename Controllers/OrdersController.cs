@@ -33,10 +33,24 @@ namespace BlazingPizzaNavigation.Controllers
         }
 
         // GET api/<OrdersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<OrderWithStatus>> GetOrderWithStatus(int orderId)
         {
-            return "value";
+          
+
+            var order = await dbContext.Orders
+                .Where(o => o.OrderId == orderId)
+                .Include(o => o.Pizzas).ThenInclude(p => p.Special)
+                .Include(o => o.Pizzas).ThenInclude(p => p.Toppings).ThenInclude(t => t.Topping)
+                .SingleOrDefaultAsync();
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return OrderWithStatus.FromOrder(order);
+
         }
 
         // POST api/<OrdersController>
