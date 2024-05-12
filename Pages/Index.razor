@@ -2,14 +2,16 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 @inject OrderStateService OrderState
+@layout CurrentMainLayout
 @* Use a layout in a Blazor component *@
 @* @layout BlazzingPizzaMainLayout Moved to _Imports.razor file*@ 
 
-@* add the top-bar html. *@
-<TopBar></TopBar>
+@* add the top-bar html. Commented since it was already applied thru Layout definition *@
+@* <TopBar></TopBar> *@
 
 <div class="main">
-  <h1>Blazing Pizzas</h1>
+    @* also delete the old <h1>Blazing Pizzas</h1> element. It's no longer needed because we have a top bar in the layout. *@
+  @* <h1>Blazing Pizzas</h1> *@
   <ul class="pizza-cards">
     @if (specials != null)
     {
