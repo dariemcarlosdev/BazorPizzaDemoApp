@@ -1,0 +1,11 @@
+﻿@inherits LayoutComponentBase
+@* This layout has used some of the markup in _Host.cshtml (div id="app"> and <div class="content">), so we need to remove it from there. *@
+<div id="app">
+   <TopBar/>
+    <div class="content">
+        @Body
+    </div>
+    <footer>
+        &copy; My Demo Blazing Pizza App @DateTime.UtcNow.Year
+    </footer>
+</div>
