@@ -1,7 +1,9 @@
 using BlazingPizzaNavigation.Model;
 
 namespace BlazingPizzaNavigation.Services;
-
+/// <summary>
+/// Defining Service to add AppState parameters sharing mechanism thru whole app..
+/// </summary>
 public class OrderStateService
 {
     public bool ShowingConfigureDialog { get; private set; }
