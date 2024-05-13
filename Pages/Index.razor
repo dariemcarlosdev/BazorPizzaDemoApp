@@ -31,6 +31,7 @@
 
 @if (OrderState.ShowingConfigureDialog)
 {
+    //Parent-child component relationship: Index(Parent Compnt) -> ConfigurePizzaDialog(Child Compnt)
     <ConfigurePizzaDialog
       Pizza="OrderState.ConfiguringPizza"
       OnCancel="OrderState.CancelConfigurePizzaDialog"
