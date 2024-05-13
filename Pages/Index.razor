@@ -73,8 +73,10 @@
   List<PizzaSpecial> specials = [];
   Order order => OrderState.Order;
 
+   // event handler method as asynchronous to combat thread get blocked by long-running task operation
   protected override async Task OnInitializedAsync()
   {
+       // await operator inside the event handler method to initiate a long-running tasks like GetFromJsonAsync() on a separate thread and free the current thread for other work
       specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
   }
 }
