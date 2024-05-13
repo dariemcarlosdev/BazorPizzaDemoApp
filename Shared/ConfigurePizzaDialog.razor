@@ -30,6 +30,8 @@
 @code {
 
     [Parameter] public Pizza Pizza { get; set; }
+
+    //Use an EventCallback to handle events across components.An event in a child component can trigger an event-handler method in a parent component by using an EventCallback
     [Parameter] public EventCallback OnCancel { get; set; }
     [Parameter] public EventCallback OnConfirm { get; set; }
 
