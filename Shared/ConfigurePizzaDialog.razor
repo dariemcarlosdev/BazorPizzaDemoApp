@@ -1,6 +1,7 @@
 @using BlazingPizzaNavigation.Model
 @inject HttpClient HttpClient
 
+@* Child Component ConfigurePizzaDialog.razor *@
 <div class="dialog-container">
     <div class="dialog">
         <div class="dialog-title">
@@ -22,7 +23,7 @@
             <span class="mr-center">
                 Price: <span class="price">@(Pizza.GetFormattedTotalPrice())</span>
             </span>
-            <button class="btn btn-success ml-auto" @onclick="OnConfirm">Order ></button>
+            <button class="btn btn-success ml-auto" @onclick="OnConfirmEvent">Order ></button>
         </div>
     </div>
 </div>
@@ -31,8 +32,25 @@
 
     [Parameter] public Pizza Pizza { get; set; }
 
-    //Use an EventCallback to handle events across components.An event in a child component can trigger an event-handler method in a parent component by using an EventCallback
-    [Parameter] public EventCallback OnCancel { get; set; }
-    [Parameter] public EventCallback OnConfirm { get; set; }
+    //Use EventCallback and EventCallback<T> are used in Blazor to handle events across components.
+    //An event in a child component can trigger an event-handler method in a parent component by using an EventCallback
+    
+    /* Note:
+     * If you want to pass a value from the child to the parent component, you can use EventCallback<T> where T is type.
+     *
+     * In Child Component:
+     *
+     *  [Parameter] public EventCallback<string> OnCancel { get; set; }
+     *
+     *  The string “Order Cancelled.” is passed to the parent component
+    *
+    */
+    [Parameter] public EventCallback<string> OnCancelEvent { get; set; } //OnCancelEvent is an EventCallback<T> that gets triggered when the button is clicked.This EventCallback is handler in parent Component Index.razor
+    [Parameter] public EventCallback OnConfirmEvent { get; set; } //OnConfirmEvent is an EventCallback that gets triggered when the button is clicked.This EventCallback is handler in parent Component Index.razor
 
+
+    private async Task OnCancel()
+    {
+        await OnCancelEvent.InvokeAsync("Order Cancelled.");
+    }
 }

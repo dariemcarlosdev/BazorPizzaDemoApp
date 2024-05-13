@@ -1,4 +1,5 @@
 using BlazingPizzaNavigation.Model;
+using Microsoft.Extensions.Logging;
 
 namespace BlazingPizzaNavigation.Services;
 /// <summary>
@@ -6,9 +7,18 @@ namespace BlazingPizzaNavigation.Services;
 /// </summary>
 public class OrderStateService
 {
+    private readonly ILogger<OrderStateService> logger;
+
+    public OrderStateService(ILogger<OrderStateService> logger)
+    {
+        this.logger = logger;
+    }
+
     public bool ShowingConfigureDialog { get; private set; }
     public Pizza ConfiguringPizza { get; private set; }
     public Order Order { get; private set; } = new Order();
+
+
 
     public void ShowConfigurePizzaDialog(PizzaSpecial special)
     {
@@ -23,18 +33,19 @@ public class OrderStateService
         ShowingConfigureDialog = true;
     }
 
-    public void CancelConfigurePizzaDialog()
+    public void CancelConfigurePizzaDialog(string msg)
     {
         ConfiguringPizza = null;
 
         ShowingConfigureDialog = false;
+        // Handle the click event here
+        logger.LogInformation(msg);  // Outputs: Button clicked
     }
 
     public void ConfirmConfigurePizzaDialog()
     {
         Order.Pizzas.Add(ConfiguringPizza);
         ConfiguringPizza = null;
-
         ShowingConfigureDialog = false;
     }
 

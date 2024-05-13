@@ -3,6 +3,11 @@
 @inject NavigationManager NavigationManager
 @inject OrderStateService OrderState
 @layout CurrentMainLayout
+
+@* Indexrazor Parent Component ->
+                Childs Component:
+                ConfigurePizzaDialog.razor *@
+
 @* Use a layout in a Blazor component *@
 @* @layout BlazzingPizzaMainLayout Moved to _Imports.razor file*@ 
 
@@ -32,10 +37,18 @@
 @if (OrderState.ShowingConfigureDialog)
 {
     //Parent-child component relationship: Index(Parent Compnt) -> ConfigurePizzaDialog(Child Compnt)
+    //Index Component create an instance of ConfigurePizzaDialog Component.
+    
+    // CancelConfigurePizzaDialog() method is assigned to OnCancelEvent EventCallback<string> of ConfigurePizzaDialog Child Compnt.
+    // so when the button in ConfigurePizzaDialog ChildComponent is clicked, the CancelConfigurePizzaDialog() method in the Index ParentComponent gets executed,
+    // and the string 'Order Cancelled.' is outputted.
+
+ 
+    //Same for OnConfirmEvent EventCallback but in this case we are not passing any value through.
     <ConfigurePizzaDialog
       Pizza="OrderState.ConfiguringPizza"
-      OnCancel="OrderState.CancelConfigurePizzaDialog"
-      OnConfirm="OrderState.ConfirmConfigurePizzaDialog" />
+      OnCancelEvent="OrderState.CancelConfigurePizzaDialog"
+      OnConfirmEvent="OrderState.ConfirmConfigurePizzaDialog" />
 }
 
 <div class="sidebar">
