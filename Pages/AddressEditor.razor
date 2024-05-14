@@ -49,14 +49,14 @@
 
     // This code creates the ElementReference and then after a page has been rendered sets the focus to input with directive @ref="startName".
     //Note: ElementReference startName Not being used anymore, @ref="startName" removed.
-    private ElementReference startName;
+   //private ElementReference startName;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await startName.FocusAsync();
-        }
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (firstRender)
+    //     {
+    //         await startName.FocusAsync();
+    //     }
     
     }
 
