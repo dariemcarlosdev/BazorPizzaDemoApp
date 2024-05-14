@@ -1,4 +1,6 @@
-﻿namespace BlazingPizzaNavigation.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BlazingPizzaNavigation.Model;
 
 /// <summary>
 /// Represents a pre-configured template for a pizza a user can order
@@ -7,10 +9,14 @@ public class PizzaSpecial
 {
     public int Id { get; set; }
 
+    [Required]
     public string Name { get; set; }
 
+    [Required]
+    [Range(10.00, 20.00)]
     public decimal BasePrice { get; set; }
 
+    [Required]
     public string Description { get; set; }
 
     public string ImageUrl { get; set; }
