@@ -17,6 +17,7 @@ public class Address
 
     public string Region { get; set; }
 
+    [PostalCodeAttribute]
     public string PostalCode { get; set; }
 }
 
