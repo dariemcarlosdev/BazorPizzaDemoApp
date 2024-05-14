@@ -1,20 +1,21 @@
 @* Child component *@
+
+<DataAnnotationsValidator />
 <div class="form-field">
     <label>Name:</label>
     <div>
         @* create an ElementReference object to reference the input element. *@
-        @* <InputText @* @ref="startName" @bind="Address.Name" />*@
+        @* <InputText @* @ref="startName" @bind="Address.Name" /> *@
         <InputText @bind-Value="Address.Name" />
         <ValidationMessage For="@(() => Address.Name)" />
         @* 
-            1 - bound input control to model properties
-            2 - add the DataAnnotationsValidator component somewhere within the EditForm component.Due to this is the child Compnt. we need to added it in Checkout Parent Component.
-        3 - To display the messages that validation generates, use the ValidationSummary component, which shows all the validation messages for all controls in the form. Added it in Checkout Parent .
+            1 - Bound input control to model properties
+            2 - Add the DataAnnotationsValidator component somewhere within the EditForm component.Due to this is the child Compnt. we need to added it in Checkout Parent Component.
+            3 - To display the messages that validation generates, use the ValidationSummary component, which shows all the validation messages for all controls in the form. Added it in Checkout Parent .
                 If you prefer to show validation messages next to each control, use multiple ValidationMessage components. Remember to tie each ValidationMessage control to a specific property of the model.
         *@
     </div>
 </div>
-
 <div class="form-field">
     <label>Line 1:</label>
     <div>
@@ -54,7 +55,6 @@
         <ValidationMessage For="@(() => Address.PostalCode)" />
     </div>
 </div>
-
 
 @code {
 
