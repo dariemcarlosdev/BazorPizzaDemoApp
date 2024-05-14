@@ -17,6 +17,8 @@
     OnSubmit: This event occurs when the EditForm is submitted regardless of whether all of the input fields are valid or not. 
     *@
     <EditForm Model="Order.DeliveryAddress" OnSubmit="CheckSubmission">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
@@ -55,6 +57,7 @@
             <button class="checkout-button btn btn-warning" disabled=@isSubmitting>
         Place order
     </button>
+        
     </EditForm>
 </div>
 
