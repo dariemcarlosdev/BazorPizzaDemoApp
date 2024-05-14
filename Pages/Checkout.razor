@@ -16,9 +16,10 @@
     ( more complex validation requirements, such as cross-checking one input field against another to ensure a valid combination of values,)
     OnSubmit: This event occurs when the EditForm is submitted regardless of whether all of the input fields are valid or not. 
     *@
-    <EditForm Model="Order.DeliveryAddress" OnSubmit="CheckSubmission">
-        <DataAnnotationsValidator/>
-        <ValidationSummary/>
+    @* <EditForm Model="Order.DeliveryAddress" OnSubmit="CheckSubmission">  *@
+    <!--removing OnSubmit="CheckSubmission" to make available Field validation and Model validation--->
+    <EditForm Model="Order.DeliveryAddress">
+    <ValidationSummary/>
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
