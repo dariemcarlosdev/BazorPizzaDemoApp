@@ -41,6 +41,11 @@
         </div>
         <div class="checkout-delivery-address">
             <h4>Deliver to...</h4>
+            @* Adding error message *@
+            @if (isError)
+                {
+                    <div class="alert alert-danger">Please, enter a valid name and address.</div>
+                }
             <AddressEditor Address="Order.DeliveryAddress" />
         </div>
     </div>
@@ -56,7 +61,7 @@
 @code {
     Order Order => OrderState.Order;
     bool isSubmitting;
-
+    bool isError = false;
     public async Task PlaceOrder()
     {
         @* The preceding code will disable the Place order button, post JSON that will be added to pizza.db, clear the order, and use NavigationManager to redirect customers to the home page. *@
@@ -72,10 +77,21 @@
     ///  Code to handle the form submission above the existing PlaceOrder method.
     /// </summary>
     /// <returns></returns>
-    public async Task CheckSubmission()
+    public async Task CheckSubmission(EditContext editContext)
     {
         isSubmitting = true;
-        await PlaceOrder();
+
+        //
+        var deliveryAddress = editContext.Model as Address;
+        isError = string.IsNullOrWhiteSpace(deliveryAddress?.Name)
+            || string.IsNullOrWhiteSpace(deliveryAddress?.Line1)
+            || string.IsNullOrWhiteSpace(deliveryAddress?.PostalCode);
+
+            if (!isError)
+        {
+            await PlaceOrder();
+        }
+        
         isSubmitting = false;
 
     }
