@@ -2,7 +2,8 @@
     <label>Name:</label>
     <div>
         @* create an ElementReference object to reference the input element. *@
-        <InputText @* @ref="startName" *@ @bind-Value="Address.Name" />
+        @* <InputText @* @ref="startName" @bind="Address.Name" />*@
+        <InputText @bind-Value="Address.Name" />
     </div>
 </div>
 
@@ -47,6 +48,7 @@
     [Parameter] public Address Address { get; set;}
 
     // This code creates the ElementReference and then after a page has been rendered sets the focus to input with directive @ref="startName".
+    //Note: ElementReference startName Not being used anymore, @ref="startName" removed.
     private ElementReference startName;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
