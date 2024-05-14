@@ -7,6 +7,16 @@
 <TopBar/>
 
 <div class="main">
+    @* 
+    An EditForm has three events that run when it is submitted:
+    (basic validation at the individual input field level.)
+    OnValidSubmit: This event is triggered if the input fields successfully pass the validation rules defined by their validation attributes.
+    OnInvalidSubmit: This event is triggered if any of the input fields on the form fail the validation defined by their validation attributes.
+    
+    ( more complex validation requirements, such as cross-checking one input field against another to ensure a valid combination of values,)
+    OnSubmit: This event occurs when the EditForm is submitted regardless of whether all of the input fields are valid or not. 
+    *@
+    <EditForm Model="Order.DeliveryAddress" OnSubmit="CheckSubmission">
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
@@ -35,9 +45,12 @@
         </div>
     </div>
     @* Modify the button element with to call a PlaceOrder method. Add the @onclick and disabled attributes as show *@
-    <button class="checkout-button btn btn-warning" @onclick="PlaceOrder" disabled=@isSubmitting>
+
+   @* Removing @onCLick event from  <button class="checkout-button btn btn-warning" @onclick="PlaceOrder" disabled=@isSubmitting> *@
+            <button class="checkout-button btn btn-warning" disabled=@isSubmitting>
         Place order
     </button>
+    </EditForm>
 </div>
 
 @code {
@@ -47,12 +60,24 @@
     public async Task PlaceOrder()
     {
         @* The preceding code will disable the Place order button, post JSON that will be added to pizza.db, clear the order, and use NavigationManager to redirect customers to the home page. *@
-        isSubmitting = true;
+        //isSubmitting = true;
         var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "orders", OrderState.Order);
         int OrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
         // NavigationManager.NavigateTo("/myorders");
         NavigationManager.NavigateTo($"myorders/{OrderId}");
+    }
+
+    /// <summary>
+    ///  Code to handle the form submission above the existing PlaceOrder method.
+    /// </summary>
+    /// <returns></returns>
+    public async Task CheckSubmission()
+    {
+        isSubmitting = true;
+        await PlaceOrder();
+        isSubmitting = false;
+
     }
 
 }
