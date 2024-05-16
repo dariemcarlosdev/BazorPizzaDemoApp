@@ -7,39 +7,32 @@
 <TopBar/>
 
 <div class="main">
-    @* 
-    An EditForm has three events that run when it is submitted:
+    <!-- 
+
+     An EditForm has three events that run when it is submitted (you can not set they all at time):
     (basic validation at the individual input field level.)
-    OnValidSubmit: This event is triggered if the input fields successfully pass the validation rules defined by their validation attributes.
-    OnInvalidSubmit: This event is triggered if any of the input fields on the form fail the validation defined by their validation attributes.
+
+    OnValidSubmit: This event fires when the user submits a form and their input passes validation.
+    OnInvalidSubmit: This event fires when the user submits a form and their input fails validation.
+    
+    Note:If you use OnValidSubmit and OnInvalidSubmit instead, you don't have to check the validation state within each event.
     
     ( more complex validation requirements, such as cross-checking one input field against another to ensure a valid combination of values,)
-    OnSubmit: This event occurs when the EditForm is submitted regardless of whether all of the input fields are valid or not. 
-    *@
-    @* <EditForm Model="Order.DeliveryAddress" OnSubmit="CheckSubmission">  *@
-    <!--removing OnSubmit="CheckSubmission" to make available Field validation and Model validation--->
-    <EditForm Model="Order.DeliveryAddress">
+    
+    OnSubmit: This event fires whenever the user submits a form, regardless of the results of validation.
+    
+    Note:if you use OnSubmit, the other two events OnValidSubmit,OnInvalidSubmit won't fire and you need to check validation state.
+    
+    <EditForm Model="Order.DeliveryAddress" OnSubmit="CheckSubmission"> 
+    removing OnSubmit="CheckSubmission" to make available Field validation and Model validation
+    
+    --->
+@*     <EditForm Model="Order.DeliveryAddress" OnSubmit=@HandleSubmission> *@
+    <EditForm Model="Order.DeliveryAddress"  OnValidSubmit=@ProcessInputData OnInvalidSubmit=@ShowFeedback>
     <ValidationSummary/>
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
-@*             @foreach (var pizza in Order.Pizzas)
-            {
-                <p>
-                    <strong>
-                        @(pizza.Size)"
-                        @pizza.Special.Name
-                        (£@pizza.GetFormattedTotalPrice())
-                    </strong>
-                </p>
-            }
-
-            <p>
-                <strong>
-                    Total price:
-                    £@Order.GetFormattedTotalPrice()
-                </strong>
-            </p> *@
             <OrderReview Order="Order" />
         </div>
         <div class="checkout-delivery-address">
@@ -78,7 +71,7 @@
     }
 
     /// <summary>
-    ///  Code to handle the form submission above the existing PlaceOrder method.
+    ///  Code to handle the form submission with OnSubmit event.
     /// </summary>
     /// <returns></returns>
     public async Task CheckSubmission(EditContext editContext)
@@ -91,13 +84,34 @@
             || string.IsNullOrWhiteSpace(deliveryAddress?.Line1)
             || string.IsNullOrWhiteSpace(deliveryAddress?.PostalCode);
 
-            if (!isError)
+        if (!isError)
         {
             await PlaceOrder();
         }
-        
+
         isSubmitting = false;
 
+    }
+
+        void HandleSubmission(EditContext editContext)
+        {
+        //cheking the validation state within each event
+        if (editContext.Validate())
+        {
+
+            Console.WriteLine("onSumission event fired.");
+        };
+        }
+    void ProcessInputData(EditContext context)
+    {
+        Console.WriteLine("OnValid event is fired.");
+        // Store valid data here
+    }
+
+    void ShowFeedback(EditContext context)
+    {
+        Console.WriteLine("OnInvalidSubmit event is fired.");
+        // Take action here to help the user correct the issues
     }
 
 }
