@@ -1,5 +1,5 @@
-using BlazingPizzaNavigation.DAL;
-using BlazingPizzaNavigation.Services;
+using BlazingPizzaDemoApp.DAL;
+using BlazingPizzaDemoApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

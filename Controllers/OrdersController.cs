@@ -1,12 +1,12 @@
-﻿using BlazingPizzaNavigation.DAL;
-using BlazingPizzaNavigation.Model;
+﻿using BlazingPizzaDemoApp.DAL;
+using BlazingPizzaDemoApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace BlazingPizzaNavigation.Controllers
+namespace BlazingPizzaDemoApp.Controllers
 {
     [Route("orders")]
     [ApiController]

@@ -1,7 +1,7 @@
-using BlazingPizzaNavigation.Model;
+using BlazingPizzaDemoApp.Model;
 using Microsoft.Extensions.Logging;
 
-namespace BlazingPizzaNavigation.Services;
+namespace BlazingPizzaDemoApp.Services;
 /// <summary>
 /// Defining Service to add AppState parameters sharing mechanism thru whole app..
 /// </summary>
