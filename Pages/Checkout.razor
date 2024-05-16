@@ -29,7 +29,6 @@
     --->
 @*     <EditForm Model="Order.DeliveryAddress" OnSubmit=@HandleSubmission> *@
     <EditForm Model="Order.DeliveryAddress"  OnValidSubmit=@ProcessInputData OnInvalidSubmit=@ShowFeedback>
-    <ValidationSummary/>
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
@@ -51,7 +50,8 @@
             <button class="checkout-button btn btn-warning" disabled=@isSubmitting>
         Place order
     </button>
-        
+        <ValidationSummary />
+        <DataAnnotationsValidator />
     </EditForm>
 </div>
 
