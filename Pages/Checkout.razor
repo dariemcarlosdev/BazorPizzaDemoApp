@@ -28,7 +28,7 @@
     
     --->
 @*     <EditForm Model="Order.DeliveryAddress" OnSubmit=@HandleSubmission> *@
-    <EditForm Model="Order.DeliveryAddress"  OnValidSubmit=@ProcessInputData OnInvalidSubmit=@ShowFeedback>
+    <EditForm Model="Order.DeliveryAddress"  OnValidSubmit=@OnValidPlacerOrder OnInvalidSubmit=@OnInvalidShowError>
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
@@ -39,7 +39,7 @@
             @* Adding error message *@
             @if (isError)
                 {
-                    <div class="alert alert-danger">Please, enter a valid name and address.</div>
+                    <div class="alert alert-danger ">Please, correct the errors before submit the form.</div>
                 }
             <AddressEditor Address="Order.DeliveryAddress" />
         </div>
@@ -57,21 +57,24 @@
 
 @code {
     Order Order => OrderState.Order;
-    bool isSubmitting;
-    bool isError = false;
+    bool isSubmitting = false;
+    bool isError;
     public async Task PlaceOrder()
     {
+        isError = false;
+        isSubmitting = true;
         @* The preceding code will disable the Place order button, post JSON that will be added to pizza.db, clear the order, and use NavigationManager to redirect customers to the home page. *@
         //isSubmitting = true;
-        var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "orders", OrderState.Order);
-        int OrderId = await response.Content.ReadFromJsonAsync<int>();
+        var response = await HttpClient.PostAsJsonAsync(
+            $"{NavigationManager.BaseUri}orders", OrderState.Order);
+        int newOrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
         // NavigationManager.NavigateTo("/myorders");
-        NavigationManager.NavigateTo($"myorders/{OrderId}");
+        NavigationManager.NavigateTo($"myorders/{newOrderId}");
     }
 
     /// <summary>
-    ///  Code to handle the form submission with OnSubmit event.
+    ///  (note being Used)Code to handle the form submission with OnSubmit event.
     /// </summary>
     /// <returns></returns>
     public async Task CheckSubmission(EditContext editContext)
@@ -92,26 +95,36 @@
         isSubmitting = false;
 
     }
+    /// <summary>
+    ///  (note being Used)In the above code, HandleSubmission is triggered when the form is submitted and is valid.
+    ///  //The Model parameter of the EditForm component is the model instance that the form is bound to.
+    /// </summary>
+    /// <param name="editContext"></param>
+    void HandleSubmission(EditContext editContext)
+    {
+        //cheking the validation state within each event.
+        // checks if the form is valid based on the defined data annotations and validation rules. If the form is valid, it will print “onSumission event fired.” to the console.
 
-        void HandleSubmission(EditContext editContext)
-        {
-        //cheking the validation state within each event
         if (editContext.Validate())
         {
 
             Console.WriteLine("onSumission event fired.");
         };
-        }
-    void ProcessInputData(EditContext context)
-    {
-        Console.WriteLine("OnValid event is fired.");
-        // Store valid data here
     }
 
-    void ShowFeedback(EditContext context)
+
+    void OnValidPlacerOrder(EditContext context)
     {
-        Console.WriteLine("OnInvalidSubmit event is fired.");
+        Console.WriteLine("OnValid event is fired and order placer.");
+        // Store valid data here
+        PlaceOrder();
+    }
+
+    void OnInvalidShowError(EditContext context)    {
+    
+        Console.WriteLine("OnInvalidSubmit event is fired, nada need to be corrected.");
         // Take action here to help the user correct the issues
+        isError = true;
     }
 
 }
