@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace BlazingPizzaNavigation.Model
 {
@@ -9,7 +10,8 @@ namespace BlazingPizzaNavigation.Model
         protected override ValidationResult IsValid(
             object value, ValidationContext validationContext)
         {
-            if ((string)value != "postal")
+             var regex = new Regex(@"^([0-9]{5})$");
+            if (!regex.IsMatch((string)value))
             {
                 return new ValidationResult(GetErrorMessage());
             }

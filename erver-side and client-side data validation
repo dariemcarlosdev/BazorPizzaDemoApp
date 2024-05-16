@@ -1,0 +1,76 @@
+* [33md9e2c2e[m[33m ([m[1;36mHEAD -> [m[1;32mValidate-Input-Implicitly-Without-Write-Validation-Code[m[33m, [m[1;31morigin/Validate-Input-Implicitly-Without-Write-Validation-Code[m[33m)[m Including Event Handlers OnValidSubmit,OnInvalidSubmit and OnSubmit.
+* [33m7e10a57[m Defining custom  Data Annotation Validatior attribute.
+* [33mff3dbfa[m some change
+* [33m76c0998[m Adding <DataAnnotationsValidator > component to show validation messages next to each control
+* [33m29c9333[m Add <ValidationSummary/> component bellow EditForm To display the messages that validation generates.removing OnSubmit="CheckSubmission" event
+* [33m6db25dd[m Adding DataAnnotationsValidator for validation
+* [33m7229e79[m Add validation components to the form.
+* [33m9527378[m Adding some DataAnnotationsValidator to model.
+* [33m05bdafd[m[33m ([m[1;31morigin/Using-Editform-For-Functional-Address-Form[m[33m, [m[1;32mUsing-Editform-For-Functional-Address-Form[m[33m)[m ElementReference startName - directive @ref="startName" removed.
+* [33ma015053[m Addin custom validation code.
+* [33m7c57276[m ElementReference startName deleted not used anymore this attribute reference to set focus on input field.
+* [33m42d941c[m Replacing <input> HTML element by <inputText> Input Blazor component. - Change @bind for @bind-Value
+* [33m43eedfd[m Adding new Folder structure.
+* [33mffe28f2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mCreate-event-handler-for-onclick-events[m[33m)[m Improve usability of the Address form set the focus on HTML input name element on a page.
+* [33mca61cb9[m Creating AddressEditor child component.
+* [33mc10a672[m Creating OrderReview child component.
+* [33mf5df908[m Updating folder structure.
+* [33mf84affb[m Replace the existing <div class="main"> HTML block to have two columns for data.
+* [33mc7ad372[m other.
+* [33md80f566[m[33m ([m[1;33mtag: handle-events-across-components-EventCallback[m[33m)[m Use an EventCallback to handle events across components
+* [33mc02598f[m Using an EventCallback to handle events across components
+* [33m1627c57[m Adding Comment to specify Parent -> Child Compnt relationship
+* [33m3b2eaf7[m comment in eventHandler async method
+* [33me5cc3ab[m[33m ([m[1;33mtag: App-State-Parameter-Sharing-Mechanism[m[33m)[m Defining Service to add AppState parameters sharing mechanism thru whole app.
+* [33mf9637c7[m[33m ([m[1;31morigin/Adding-Layout-to-reduce-duplication-code[m[33m, [m[1;32mAdding-Layout-to-reduce-duplication-code[m[33m)[m another changes.
+* [33m59be0f2[m Removing  _Import.razor from Page folder due to it will overwrite CurrentMainLayout setting in App.razor
+* [33mc49ca4e[m Commented @* <TopBar/> *@ out since layout applied from App level
+* [33m702ec14[m Applying Layout to all components in App.
+* [33m4b0af9d[m Just other changes.
+* [33m9aa9810[m Just Another Layout definition.
+* [33m7ae55fd[m Applying Layout to a single Component.
+* [33m3a903f2[m Removing markup already existing in CurrentMainLayout
+* [33m97d5848[m Refactoring TopBarComponent and included in CurrentMainLayout.
+* [33mfbdbfa2[m Add a MainLayout component
+* [33ma8e4b06[m[33m ([m[1;31morigin/Buidl-reusable-components-using-layouts[m[33m, [m[1;32mBuild-reusable-components-using-layouts[m[33m)[m applying a default layout to every component in all folders of your web app using app.razor
+* [33mac98190[m Taking out @layout directive since it was applied into _Imports.razor file
+* [33m2d3fd5f[m Don't add a @layout directive to the _Imports.razor file in the root folder of your project because that results in an infinite loop of layouts.
+* [33mf4f39c2[m  apply a template to all the Blazor components using the _Imports.razor file in same folder.
+* [33m7ce09ea[m Use a layout in a Blazor componen
+* [33mb21335d[m Coding a Blazor layout
+* [33ma39689f[m[33m ([m[1;31morigin/Using-route-parameters-to-improve-navigation[m[33m, [m[1;32mUsing-route-parameters-to-improve-navigation[m[33m)[m db updates
+* [33mda90aa5[m Replace the <a href="myorders/" ..> to view more detail
+* [33m1b98424[m Change the call to NavigationManager.NavigateTo("/myorders") to use the order ID of the placed order.
+* [33m9a04307[m Creating GetOrderWithStatus to respond to an HTTP request with orderId in the URL.The method then uses this ID to query the database and, if an order is found, return an OrderWithStatus object.
+* [33m47a86bb[m Creating an order detail page
+* [33meaf70d7[m Some refactoring tasks
+* [33me7e8ad9[m other updates in db.
+* [33m9de47cf[m Adding some comments MyOrders Component
+* [33mcfed173[m Changing Route attribute
+* [33m70fa79b[m NavLink component to add active class.
+* [33m3094cc3[m Creating topBar Component to share it thru all components which use the same Blazor code for navigation.
+* [33md438782[m change NavigationManager to redirect to the myorders page after an order is placed
+* [33m3126484[m Add orders page o allow customers to see the status of their pizza order after they place it.
+* [33m7247079[m Other changes, no fuctional but project refactoring related concerns.
+* [33mc8d32ad[m Adding header navigation bar.
+* [33m0c07f0d[m New db created after add EF support for Order and Pizza
+* [33m1de1a82[m[33m ([m[1;33mtag: backend-class[m[33m)[m Class to simulate the Status of an Order placed after checkout.
+* [33m6012821[m implement Method Reset Order
+* [33m0d72963[m instead of new List<Pizza>() use[] to represent strong types LIST of object type T
+* [33m8a66745[m Adding OrderController for handling http POST and GET requests to create and get orders  for /orders and /orders/{orderId}
+* [33m73af4a7[m Adding common namespaces to the project.
+* [33m5831fa1[m Add entity framework support for orders and pizzas
+* [33m3ef963b[m Allow customers to place an order
+* [33m3a63d25[m Adding Checkout page
+* [33m432e0bd[m polishing project structure
+* [33m603ca6d[m Create dotnet.yml
+* [33m8f301c7[m Making some changes to correct namespaces and project references
+* [33mcbedf15[m project cloned from https://github.com/MicrosoftDocs/mslearn-blazor-navigation.git BlazingPizza
+* [33m0bf70ca[m Update OrderState.cs
+* [33m831eaec[m commit code
+* [33mac64341[m SECURITY.md committed
+* [33mac87af5[m LICENSE-CODE committed
+* [33m015e263[m LICENSE committed
+* [33m4e42af9[m README.md committed
+* [33md3009b6[m CODE_OF_CONDUCT.md committed
+* [33m7c505e3[m Initial commit
