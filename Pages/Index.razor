@@ -1,8 +1,9 @@
-@page "/"
+﻿@page "/"
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
-@inject OrderStateService OrderState
+@inject OrderStateService OrderStateService
 @layout CurrentMainLayout
+@inject IJSRuntime JavaScript
 
 @* Indexrazor Parent Component ->
                 Childs Component:
@@ -22,7 +23,7 @@
     {
       @foreach (var special in specials)
       {
-          <li @onclick="@(() => OrderState.ShowConfigurePizzaDialog(special))" style="background-image: url('@special.ImageUrl')">
+          <li @onclick="@(() => OrderStateService.ShowConfigurePizzaDialog(special))" style="background-image: url('@special.ImageUrl')">
           <div class="pizza-info">
           <span class="title">@special.Name</span>
           @special.Description
@@ -34,7 +35,7 @@
   </ul>
 </div>
 
-@if (OrderState.ShowingConfigureDialog)
+@if (OrderStateService.ShowingConfigureDialog)
 {
     //Parent-child component relationship: Index(Parent Compnt) -> ConfigurePizzaDialog(Child Compnt)
     //Index Component create an instance of ConfigurePizzaDialog Component.
@@ -46,9 +47,9 @@
  
     //Same for OnConfirmEvent EventCallback but in this case we are not passing any value through.
     <ConfigurePizzaDialog
-      Pizza="OrderState.ConfiguringPizza"
-      OnCancelEvent="OrderState.CancelConfigurePizzaDialog"
-      OnConfirmEvent="OrderState.ConfirmConfigurePizzaDialog" />
+      Pizza="OrderStateService.ConfiguringPizza"
+      OnCancelEvent="OrderStateService.CancelConfigurePizzaDialog"
+      OnConfirmEvent="OrderStateService.ConfirmConfigurePizzaDialog" />
 }
 
 <div class="sidebar">
@@ -60,7 +61,12 @@
             @foreach (var configuredPizza in order.Pizzas)
             {
               <div class="cart-item">
-                  <a @onclick="@(() => OrderState.RemoveConfiguredPizza(configuredPizza))" class="delete-item">x</a>
+                    <!--replacing onclick event for removing pizza that call OrderState.RemoveConfiguredPizza(configuredPizza)) method-->
+                    <!--a @onclick="@(() => OrderStateService.RemoveConfiguredPizza(configuredPizza))" class="delete-item">❌</a>-->
+                    <button type="button" class="close text-danger" aria-label="Close"
+                            @onclick="@(async () => await RemovePizzaConfirmationMsg(configuredPizza))">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                   <div class="title">@(configuredPizza.Size)" @configuredPizza.Special.Name</div>
                   <div class="item-price">
                       @configuredPizza.GetFormattedTotalPrice()
@@ -77,21 +83,31 @@
     <div class="order-total @(order.Pizzas.Any() ? "" : "hidden")">
         Total:
         <span class="total-price">@order.GetFormattedTotalPrice()</span>
-        <a href="checkout" class="@(OrderState.Order.Pizzas.Count == 0 ? "btn btn-warning disabled" : "btn btn-warning")">
+        <a href="checkout" class="@(OrderStateService.Order.Pizzas.Count == 0 ? "btn btn-warning disabled" : "btn btn-warning")">
             Order >
         </a>
     </div>
 </div>
 
 @code {
-  List<PizzaSpecial> specials = [];
-  Order order => OrderState.Order;
+    List<PizzaSpecial> specials = [];
+    Order order => OrderStateService.Order;
 
-   // event handler method as asynchronous to combat thread get blocked by long-running task operation
-  protected override async Task OnInitializedAsync()
-  {
-       // await operator inside the event handler method to initiate a long-running tasks like GetFromJsonAsync() on a separate thread and free the current thread for other work
-      specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
-  }
+    // event handler method as asynchronous to combat thread get blocked by long-running task operation
+    protected override async Task OnInitializedAsync()
+    {
+        // await operator inside the event handler method to initiate a long-running tasks like GetFromJsonAsync() on a separate thread and free the current thread for other work
+        specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
+    }
+
+    public async Task RemovePizzaConfirmationMsg(Pizza removePizza)
+    {
+        //The server uses the IJSRuntime.InvokeAsync method to call the confirm function on the client side, the response is a bool value.
+        if (await JavaScript.InvokeAsync<bool>("confirm", $"""Do you want to remove the "{removePizza.Special!.Name}" from your order?"""))
+        {
+            OrderStateService.RemoveConfiguredPizza(removePizza);
+        }
+    
+    }
 }
 		
