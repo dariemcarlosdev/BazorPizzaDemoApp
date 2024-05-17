@@ -113,15 +113,15 @@
 
 
     /// <summary>
-    /// The OnAfterRenderAsync method is another lifecycle method in Blazor. It is called after the component has finished rendering. 
+    /// The OnAfterRenderAsync method is another lifecycle method in Blazor. It is called after the component has finished rendering.
     ///  This method is useful for performing operations that require the component to be rendered first, such as JavaScript interop calls.
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
+    /// <returns></returns
     protected override Task OnAfterRenderAsync(bool firstRender)
+    //The OrderDetail component starts polling after the page renders thru this method, and stops polling when the order is delivered.
     {
         JavaScript.InvokeVoidAsync("console.log", "OnAfterRenderAsync lifecycle method invoked.");
-        //The OrderDetail component starts polling after the page renders, and stops polling when the order is delivered.
         return firstRender ? StartPollingTimerAsync() : Task.CompletedTask;
 
     }
