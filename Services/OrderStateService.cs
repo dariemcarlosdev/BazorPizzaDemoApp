@@ -5,14 +5,9 @@ namespace BlazingPizzaDemoApp.Services;
 /// <summary>
 /// Defining Service to add AppState parameters sharing mechanism thru whole app..
 /// </summary>
-public class OrderStateService
+public class OrderStateService(ILogger<OrderStateService> logger)
 {
-    private readonly ILogger<OrderStateService> logger;
-
-    public OrderStateService(ILogger<OrderStateService> logger)
-    {
-        this.logger = logger;
-    }
+    private readonly ILogger<OrderStateService> logger = logger;
 
     public bool ShowingConfigureDialog { get; private set; }
     public Pizza ConfiguringPizza { get; private set; }
@@ -27,7 +22,7 @@ public class OrderStateService
             Special = special,
             SpecialId = special.Id,
             Size = Pizza.DefaultSize,
-            Toppings = new List<PizzaTopping>(),
+            Toppings = [],
         };
 
         ShowingConfigureDialog = true;
