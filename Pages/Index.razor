@@ -102,8 +102,21 @@
 
     public async Task RemovePizzaConfirmationMsg(Pizza removePizza)
     {
+        var messageParams = new
+        {
+            title = "Remove Pizza?",
+            Text = $"""Do you want to remove the "{removePizza.Special!.Name}" from your order?""",
+            icon = "warning",
+            buttons = new
+            {
+                abort = new { text = "No, leave it in my order", value = false },
+                confirm = new { text = "Yes, remove pizza", value = true }
+            },
+            danger = true
+        };
+
         //The server uses the IJSRuntime.InvokeAsync method to call the confirm function on the client side, the response is a bool value.
-        if (await JavaScript.InvokeAsync<bool>("confirm", $"""Do you want to remove the "{removePizza.Special!.Name}" from your order?"""))
+        if (await JavaScript.InvokeAsync<bool>("swal", messageParams))
         {
             OrderStateService.RemoveConfiguredPizza(removePizza);
         }
