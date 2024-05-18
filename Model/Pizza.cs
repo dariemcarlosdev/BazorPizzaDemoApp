@@ -21,9 +21,11 @@ public class Pizza
 
     public List<PizzaTopping> Toppings { get; set; }
 
+    //The code now accounts for a special pizza that has a FixedSize when it returns the BasePrice.
     public decimal GetBasePrice()
     {
-        return Size / (decimal)DefaultSize * Special.BasePrice;
+        return Special is { FixedSize: not null }
+        ? Special.BasePrice : Size / (decimal)DefaultSize * Special.BasePrice;
     }
 
     public decimal GetTotalPrice()
