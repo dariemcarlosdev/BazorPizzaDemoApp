@@ -120,6 +120,7 @@
     /// <returns></returns
     protected override Task OnAfterRenderAsync(bool firstRender)
     //The OrderDetail component starts polling after the page renders thru this method, and stops polling when the order is delivered.
+    //code in a Blazor Server component can't perform actions that require a connection to the browser, such as calling JavaScript code. You should place logic that depends on a connection with the browser in the OnAfterRender or OnAfterRenderAsync methods.
     {
         JavaScript.InvokeVoidAsync("console.log", "OnAfterRenderAsync lifecycle method invoked.");
         return firstRender ? StartPollingTimerAsync() : Task.CompletedTask;
@@ -137,6 +138,8 @@
             StateHasChanged();
         }
     }
-
+    /// <summary>
+    /// Implement the IDisposable or IAsyncDisposable interfaces and provide a Dispose or DisposeAsync method to release any unmanaged resources
+    /// </summary>
     public void Dispose() => periodicTimer.Dispose();
 }
