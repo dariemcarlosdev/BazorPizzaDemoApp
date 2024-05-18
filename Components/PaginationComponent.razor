@@ -1,0 +1,88 @@
+﻿<!--
+ Templated components are components that receive one or more UI templates as parameters, thru RenderFragment or RenderFragment<T>
+ which can be utilized in the rendering logic of the component.
+ These types represent a segment of UI content, with RenderFragment<T> allowing for a parameter to be passed when the fragment is invoked.
+ 
+ Templated components in Blazor are used when you want to create higher-level, more reusable components. 
+ They allow you to pass one or more UI templates as parameters, which can then be used as part of the component’s rendering logic. 
+ Here are some scenarios where templated components can be beneficial:
+
+Table Component: You can specify templates for the table’s header, rows, and footer1.
+List Component: Allows a user to specify a template for rendering items in a list1.
+Navigation Bar Component: You can specify a template for start content and navigation links1.
+Templated components are often generically typed, allowing them to render different types of data1. They are defined by specifying one or more component parameters of type RenderFragment or RenderFragment<TValue>1.
+
+In summary, use templated components in Blazor when you need more flexibility in rendering and want to create reusable components that can be customized for specific use cases. 
+They enhance the maintainability and scalability of your Blazor applications4.
+More about Templated Components here:
+https://learn.microsoft.com/en-us/aspnet/core/blazor/components/templated-components?view=aspnetcore-8.0-->
+
+
+<!--accepts a generic type parameter TItem-->
+@typeparam TItem
+<!--container to display the selected item-->
+<div class="container-sm py-4">
+    @ItemContent(Items.ElementAt(selectedIndex))
+</div>
+<!--a <nav> element to display the pagination controls-->
+<nav aria-label="Pagination functionality">
+    <ul class="pagination pagination-lg justify-content-center">
+        <li class="page-item @(previousDisabled ? "disabled" : "")" disabled="@previousDisabled">
+            <a class="page-link" @onclick="@(() => SetIndex(0))">
+                <span>⏪</span>
+            </a>
+        </li>
+        <li class="page-item @(previousDisabled ? "disabled" : "")" disabled="@previousDisabled">
+            <a class="page-link" @onclick="DecrementIndex"><span>⬅️</span></a>
+        </li>
+        @foreach ((int index, TItem item) in Items.Select((item, index) => (index, item)))
+        {
+            var isActive = index == selectedIndex;
+            <li class="page-item @(isActive ? "active" :"")">
+                <a class="page-link" @onclick="@(() => SetIndex(index))">
+                    @ItemLabel(item)
+                </a>
+            </li>
+        }
+        <li class="page-item @(nextDisabled ? "disabled" : "")" disabled="@nextDisabled">
+            <a class="page-link" @onclick="IncrementIndex"><span>➡️</span></a>
+        </li>
+        <li class="page-item @(nextDisabled ? "disabled" : "")" disabled="@nextDisabled">
+            <a class="page-link" @onclick="@(() => SetIndex(Items.Count - 1))">
+                <span>⏩</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+@code {
+    //The Items parameter is a list of TItem items to display.
+    [Parameter, EditorRequired]
+    public required List<TItem> Items { get; set; }
+    
+    //The ItemContent parameter is a render fragment that defines how to display the content of a selected item.
+    //A render fragment represents a segment of UI to render.
+    [Parameter, EditorRequired]
+    public required RenderFragment<TItem> ItemContent { get; set; }
+    
+    //The ItemLabel parameter is a function that defines how to display the label for each item.
+    [Parameter, EditorRequired]
+    public required Func<TItem, MarkupString> ItemLabel { get; set; }
+    
+    //The selectedIndex field tracks which item is currently selected.
+    int selectedIndex;
+
+    bool previousDisabled => selectedIndex == 0;
+    bool nextDisabled => selectedIndex == Items.Count - 1;
+    // the IncrementIndex, DecrementIndex, and SetIndex methods are used to change the selected item index.
+    void IncrementIndex() => selectedIndex++;
+    void DecrementIndex() => selectedIndex--;
+    void SetIndex(int index) => selectedIndex = index;
+    
+    
+    /// <summary>
+    /// The OnInitialized method sets the initial selected item to the last item in the list.
+    /// </summary>
+    protected override void OnInitialized() =>
+        selectedIndex = Items.Count - 1;
+}
