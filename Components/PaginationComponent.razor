@@ -1,0 +1,62 @@
+﻿<!--accepts a generic type parameter TItem-->
+@typeparam TItem
+<!--container to display the selected item-->
+<div class="container-sm py-4">
+    @ItemContent(Items.ElementAt(selectedIndex))
+</div>
+<!--a <nav> element to display the pagination controls-->
+<nav aria-label="Pagination functionality">
+    <ul class="pagination pagination-lg justify-content-center">
+        <li class="page-item @(previousDisabled ? "disabled" : "")" disabled="@previousDisabled">
+            <a class="page-link" @onclick="@(() => SetIndex(0))">
+                <span>⏪</span>
+            </a>
+        </li>
+        <li class="page-item @(previousDisabled ? "disabled" : "")" disabled="@previousDisabled">
+            <a class="page-link" @onclick="DecrementIndex"><span>⬅️</span></a>
+        </li>
+        @foreach ((int index, TItem item) in Items.Select((item, index) => (index, item)))
+        {
+            var isActive = index == selectedIndex;
+            <li class="page-item @(isActive ? "active" :"")">
+                <a class="page-link" @onclick="@(() => SetIndex(index))">
+                    @ItemLabel(item)
+                </a>
+            </li>
+        }
+        <li class="page-item @(nextDisabled ? "disabled" : "")" disabled="@nextDisabled">
+            <a class="page-link" @onclick="IncrementIndex"><span>➡️</span></a>
+        </li>
+        <li class="page-item @(nextDisabled ? "disabled" : "")" disabled="@nextDisabled">
+            <a class="page-link" @onclick="@(() => SetIndex(Items.Count - 1))">
+                <span>⏩</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+@code {
+    //The Items parameter is a list of TItem items to display.
+    [Parameter, EditorRequired]
+    public required List<TItem> Items { get; set; }
+    //The ItemContent parameter is a render fragment that defines how to display the content of a selected item.
+    [Parameter, EditorRequired]
+    public required RenderFragment<TItem> ItemContent { get; set; }
+    //The ItemLabel parameter is a function that defines how to display the label for each item.
+    [Parameter, EditorRequired]
+    public required Func<TItem, MarkupString> ItemLabel { get; set; }
+    //The selectedIndex field tracks which item is currently selected.
+    int selectedIndex;
+
+    bool previousDisabled => selectedIndex == 0;
+    bool nextDisabled => selectedIndex == Items.Count - 1;
+    // the IncrementIndex, DecrementIndex, and SetIndex methods are used to change the selected item index.
+    void IncrementIndex() => selectedIndex++;
+    void DecrementIndex() => selectedIndex--;
+    void SetIndex(int index) => selectedIndex = index;
+    /// <summary>
+    /// The OnInitialized method sets the initial selected item to the last item in the list.
+    /// </summary>
+    protected override void OnInitialized() =>
+        selectedIndex = Items.Count - 1;
+}
