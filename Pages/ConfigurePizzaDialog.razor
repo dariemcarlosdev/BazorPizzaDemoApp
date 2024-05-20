@@ -1,0 +1,74 @@
+@using BlazingPizzaDemoApp.Model
+@inject HttpClient HttpClient
+
+@* Child Component ConfigurePizzaDialog.razor *@
+<div class="dialog-container">
+    <div class="dialog">
+        <div class="dialog-title">
+            <h2>@Pizza.Special.Name</h2>
+            @Pizza.Special.Description
+        </div>
+        <form class="dialog-body">
+            @if (SupportSizingDialogBox)
+            {
+                <div>
+                    <label>Size:</label>
+                    <!--HTML range element to allow the customer to select the pizza size-->
+                    <input type="range" min="@Pizza.MinimumSize" max="@Pizza.MaximumSize" step="1" @bind="Pizza.Size" @bind:event="oninput" />
+                    <span class="size-label">
+                        @(Pizza.Size)" (£@(Pizza.GetFormattedTotalPrice()))
+                    </span>
+                </div>
+            }
+
+        </form>
+
+        <div class="dialog-buttons">
+            <button class="btn btn-secondary mr-auto" @onclick="OnCancel">Cancel</button>
+            <span class="mr-center">
+                Price: <span class="price">@(Pizza.GetFormattedTotalPrice())</span>
+            </span>
+            <button class="btn btn-success ml-auto" @onclick="OnConfirmEvent">Order ></button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public Pizza Pizza { get; set; }
+
+    //Use EventCallback and EventCallback<T> are used in Blazor to handle events across components.
+    //An event in a child component can trigger an event-handler method in a parent component by using an EventCallback
+
+    /* Note:
+    * If you want to pass a value from the child to the parent component, you can use EventCallback<T> where T is type.
+    *
+    * In Child Component:
+    *
+    *  [Parameter] public EventCallback<string> OnCancel { get; set; }
+    *
+    *  The string “Order Cancelled.” is passed to the parent component
+    *
+    */
+    [Parameter] public EventCallback<string> OnCancelEvent { get; set; } //OnCancelEvent is an EventCallback<T> that gets triggered when the button is clicked.This EventCallback is handler in parent Component Index.razor
+    [Parameter] public EventCallback OnConfirmEvent { get; set; } //OnConfirmEvent is an EventCallback that gets triggered when the button is clicked.This EventCallback is handler in parent Component Index.razor
+
+    bool SupportSizingDialogBox = true;
+
+    private async Task OnCancel()
+    {
+        await OnCancelEvent.InvokeAsync("Order Cancelled.");
+    }
+    /// <summary>
+    /// The SupportSizingDialogBox field defaults to true, but if the pizza has a fixed size, the field is set to false.
+    /// The OnInitialized lifecycle method override sets the pizza size to the fixed size and disables sizing support.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        if (Pizza is { Special.FixedSize: not null })
+        {
+            Pizza.Size = Pizza.Special.FixedSize.Value;
+            SupportSizingDialogBox = false;
+        }
+    }
+}
