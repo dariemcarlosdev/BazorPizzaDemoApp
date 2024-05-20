@@ -12,6 +12,9 @@
 @using BlazingPizzaDemoApp.Model
 @using BlazingPizzaDemoApp.Pages
 @using BlazingPizzaDemoApp.Services
+@* 
+    adding a reference to the RazorClasLibrery Project's modal component so that the application can interact with the components in the FirstRazorLibrary project.
+*@
 @using FirstRazorLibrery
 @* 
 NOTE:Don't add a @layout directive to the _Imports.razor file in the root folder of your project because that results in an infinite loop of layouts.Create an _Imports.razor file into folder containing Components sharing same layout and apply directive on it.
