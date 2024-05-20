@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Learn.MyFirstRazorClassLibrary" Version="0.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
@@ -22,7 +23,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FirstRazorLibrery\FirstRazorLibrery.csproj" />
+    <!--referencing the FirstClassLibrary project in your MyBlazorServer application, because it is in the same folder structure as the web application.-->
+    <!--<ProjectReference Include="..\FirstRazorLibrery\FirstRazorLibrery.csproj" />-->
+    <!--if you want to add a reference to the NuGet package that you created:
+    remove the following line: 
+    
+    <ProjectReference Include="..\FirstClassLibrary\FirstClassLibrary.csproj" /> above
+    
+    And in the same folder as MyBlazorApp.csproj, run the following command:
+
+    .NET CLI:
+    
+    dotnet add package My.FirstClassLibrary -s ..\FirstClassLibrary\bin\Debug
+    
+    This command grabs the NuGet package that you created earlier, installs a copy in your local NuGet package cache, 
+    and then adds a reference to that package in the MyBlazorServer.csproj file..and it appears in </ItemGroup>:
+    
+    <PackageReference Include="Learn.MyFirstRazorClassLibrary" Version="0.1.0" />
+    -->
+
   </ItemGroup>
 
   <ItemGroup>
