@@ -15,7 +15,13 @@
 @* add the top-bar html. Commented since it was already applied thru Layout definition *@
 @* <TopBar></TopBar> *@
 
+<!--Add a modal component librery to the opening page of this application-->
 <div class="main">
+    <Modal Title="My first Modal dialog" Show="true">
+        <p>
+        This is my first modal dialog
+        </p>
+    </Modal>
     @* also delete the old <h1>Blazing Pizzas</h1> element. It's no longer needed because we have a top bar in the layout. *@
   @* <h1>Blazing Pizzas</h1> *@
   <ul class="pizza-cards">
