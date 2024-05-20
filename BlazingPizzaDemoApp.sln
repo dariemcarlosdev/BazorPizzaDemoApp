@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingPizzaDemoApp", "Blaz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingPizza", "..\BlazingPizzaGuitRepo\BlazingPizza.csproj", "{39DD6C85-82BF-4239-9A26-2486560C28C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstRazorLibrery", "FirstRazorLibrery\FirstRazorLibrery.csproj", "{59D285CE-6223-403E-8F49-0C79C9FCC08E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstRazorLibrery", "..\FirstRazorLibrery\FirstRazorLibrery.csproj", "{5CC50021-47D3-47FA-A4AD-4667EF2F1212}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{39DD6C85-82BF-4239-9A26-2486560C28C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39DD6C85-82BF-4239-9A26-2486560C28C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39DD6C85-82BF-4239-9A26-2486560C28C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59D285CE-6223-403E-8F49-0C79C9FCC08E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59D285CE-6223-403E-8F49-0C79C9FCC08E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59D285CE-6223-403E-8F49-0C79C9FCC08E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59D285CE-6223-403E-8F49-0C79C9FCC08E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CC50021-47D3-47FA-A4AD-4667EF2F1212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CC50021-47D3-47FA-A4AD-4667EF2F1212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CC50021-47D3-47FA-A4AD-4667EF2F1212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CC50021-47D3-47FA-A4AD-4667EF2F1212}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
