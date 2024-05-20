@@ -1,0 +1,30 @@
+﻿In Blazor, a parent component and a child component are part of the component-oriented architecture. 
+A Blazor application comprises multiple small and large Blazor components forming a component tree.
+
+A parent component:
+
+is responsible for storing and updating the root state. It renders before its child components. 
+It can pass parameters to child components and also manage the state of the parent itself and its children.
+
+A child component:
+
+is responsible for executing the business logic or part of it. It can be reused in another component. 
+The state is shared by passing parameters from the parent to the child component. 
+A child component can also communicate with its parent component by invoking a callback within a method.
+
+For example, in a Blazor Server application, you might have a parent component that includes a child component like this:
+
+C#
+
+<!-- ParentComponent.razor -->
+<div>
+    <h2>Parent Component</h2>
+    <ChildRazorComponent @ref="childComponentRef" />
+</div>
+
+@code {
+    private ChildRazorComponent childComponentRef;
+}
+
+In this example, ChildRazorComponent is included in the markup of ParentComponent. The @ref directive is used to create a reference (childComponentRef) to the instance of ChildRazorComponent. 
+This allows the parent component to interact with the child component directly

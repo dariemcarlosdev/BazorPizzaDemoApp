@@ -1,6 +1,7 @@
 ﻿@page "/MyOrders"
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JavaScript
 @using BlazingPizzaDemoApp.Components
 @* <TopBar/> *@
 
@@ -51,10 +52,10 @@
             providing the generic type of OrderWithStatus, a list of past orders sorted by their creation date, 
             and a function to generate the label for each item. The ItemContent render fragment defines the markup for each item.
         -->
-        <PaginationComponent TItem="OrderWithStatus"
+        <TemplatedPaginationComponent TItem="OrderWithStatus"
                              Items="orderWithStatuses.OrderBy(o => o.Order.CreatedTime).ToList()"
                              ItemLabel='item => new($"{item.Order.CreatedTime:ddd, MMM. d, yyyy}")'>
-            <ItemContent>
+            <ItemContentTemplate>
                 <div class="list-group-item bg-secondary text-white">
                     <div class="col">
                         <h5>@($"{context.Order.CreatedTime:dddd, MMMM d, yyyy hh:mm tt}")</h5>
@@ -78,8 +79,8 @@
                         <OrderReview Order="@context.Order" />
                     </div>
                 </div>
-            </ItemContent>
-        </PaginationComponent>
+            </ItemContentTemplate>
+        </TemplatedPaginationComponent>
 
     }
 </div>
@@ -98,6 +99,7 @@
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
+        await JavaScript.InvokeVoidAsync("console.log", "Rendering Parent Component MyOrders.razor");
         orderWithStatuses = await HttpClient.GetFromJsonAsync<List<OrderWithStatus>>($"{NavigationManager.BaseUri}orders");
 
     }

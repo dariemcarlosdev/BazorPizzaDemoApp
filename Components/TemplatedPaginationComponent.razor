@@ -1,5 +1,5 @@
 ﻿<!--
- Templated components are components that receive one or more UI templates as parameters, thru RenderFragment or RenderFragment<T>
+ Templated components are child components that receive one or more UI templates as parameters, thru RenderFragment or RenderFragment<T>
  which can be utilized in the rendering logic of the component.
  These types represent a segment of UI content, with RenderFragment<T> allowing for a parameter to be passed when the fragment is invoked.
  
@@ -20,9 +20,11 @@ https://learn.microsoft.com/en-us/aspnet/core/blazor/components/templated-compon
 
 <!--accepts a generic type parameter TItem-->
 @typeparam TItem
+@inject IJSRuntime JavaScript
+
 <!--container to display the selected item-->
 <div class="container-sm py-4">
-    @ItemContent(Items.ElementAt(selectedIndex))
+    @ItemContentTemplate(Items.ElementAt(selectedIndex))
 </div>
 <!--a <nav> element to display the pagination controls-->
 <nav aria-label="Pagination functionality">
@@ -56,19 +58,22 @@ https://learn.microsoft.com/en-us/aspnet/core/blazor/components/templated-compon
 </nav>
 
 @code {
+
+
     //The Items parameter is a list of TItem items to display.
     [Parameter, EditorRequired]
     public required List<TItem> Items { get; set; }
-    
+
     //The ItemContent parameter is a render fragment that defines how to display the content of a selected item.
-    //A render fragment represents a segment of UI to render.
+    //A render fragment represents a segment of UI to render.The ItemContentTemplate is invoked for each item in the Items list, and the result is rendered in the component’s output.
+
     [Parameter, EditorRequired]
-    public required RenderFragment<TItem> ItemContent { get; set; }
-    
+    public required RenderFragment<TItem> ItemContentTemplate { get; set; }
+
     //The ItemLabel parameter is a function that defines how to display the label for each item.
     [Parameter, EditorRequired]
     public required Func<TItem, MarkupString> ItemLabel { get; set; }
-    
+
     //The selectedIndex field tracks which item is currently selected.
     int selectedIndex;
 
@@ -78,11 +83,16 @@ https://learn.microsoft.com/en-us/aspnet/core/blazor/components/templated-compon
     void IncrementIndex() => selectedIndex++;
     void DecrementIndex() => selectedIndex--;
     void SetIndex(int index) => selectedIndex = index;
-    
-    
+
+
     /// <summary>
     /// The OnInitialized method sets the initial selected item to the last item in the list.
     /// </summary>
-    protected override void OnInitialized() =>
+    protected override void OnInitialized()
+    {
+        JavaScript.InvokeVoidAsync("console.log", "Rendering Child Component TemplatedPaginationComponent.razor");
         selectedIndex = Items.Count - 1;
+    }
+
+    
 }

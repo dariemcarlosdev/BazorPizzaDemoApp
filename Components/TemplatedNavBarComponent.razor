@@ -1,0 +1,43 @@
+﻿@typeparam TItem
+
+<nav class="navbar navbar-expand navbar-light bg-light">
+    <div class="container justify-content-start">
+        @StartContent
+        <div class="navbar-nav">
+            @foreach (var item in Items)
+            {
+                @ItemTemplate(item)
+            }
+        </div>
+    </div>
+</nav>
+
+@code {
+
+    // In this example, StartContent and ItemTemplate are parameters of type RenderFragment and RenderFragment<TItem> respectively.
+    [Parameter] public RenderFragment? StartContent { get; set; }
+    
+    // The ItemTemplate is invoked for each item in the Items list, and the result is rendered in the component’s output.
+    [Parameter] public RenderFragment<TItem> ItemTemplate { get; set; } = default!;
+
+    // The Items parameter is a list of items of type TItem
+    [Parameter] public IReadOnlyList<TItem> Items { get; set; } = default!;
+}
+
+@* 
+ When using this component, you can specify the templates for StartContent and ItemTemplate using child elements that match the names of the parameters. For example:
+
+In Parent Component:
+<TemplatedNavBar Items="myItems">
+    <StartContent>
+        <!-- Your start content here -->
+    </StartContent>
+    <ItemTemplate>
+        <!-- Your item template here -->
+    </ItemTemplate>
+</TemplatedNavBar>
+
+In this usage example, myItems would be a variable in your code that contains the list of items to be displayed. 
+The StartContent and ItemTemplate elements contain the templates for the start content and each item respectively. 
+
+*@
