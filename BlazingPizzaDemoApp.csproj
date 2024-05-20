@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Description>This is a Razor component library with a cool modal window component.</Description>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
