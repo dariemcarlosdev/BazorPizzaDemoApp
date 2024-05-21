@@ -1,9 +1,9 @@
-using BlazingPizzaDemoApp.DAL;
-using BlazingPizzaDemoApp.Model;
+using BlazorPizzaDemoApp.DAL;
+using BlazorPizzaDemoApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazingPizzaDemoApp.Controllers;
+namespace BlazorPizzaDemoApp.Controllers;
 
 [Route("specials")]
 [ApiController]

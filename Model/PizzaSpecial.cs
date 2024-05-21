@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlazingPizzaDemoApp.Model;
+namespace BlazorPizzaDemoApp.Model;
 
 /// <summary>
 /// Represents a pre-configured template for a pizza a user can order

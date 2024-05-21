@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingPizzaDemoApp", "BlazingPizzaDemoApp.csproj", "{453A8B0B-BA01-4F53-906A-E60BB2D5FF61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorPizzaDemoApp", "BlazorPizzaDemoApp.csproj", "{453A8B0B-BA01-4F53-906A-E60BB2D5FF61}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingPizza", "..\BlazingPizzaGuitRepo\BlazingPizza.csproj", "{39DD6C85-82BF-4239-9A26-2486560C28C9}"
 EndProject

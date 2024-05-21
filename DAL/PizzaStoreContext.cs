@@ -1,9 +1,9 @@
-using BlazingPizzaDemoApp.Model;
+using BlazorPizzaDemoApp.Model;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazingPizzaDemoApp.DAL;
+namespace BlazorPizzaDemoApp.DAL;
 
 public class PizzaStoreContext : DbContext
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace BlazingPizzaDemoApp.Model
+namespace BlazorPizzaDemoApp.Model
 {
     public class PostalCodeAttribute : ValidationAttribute
     {

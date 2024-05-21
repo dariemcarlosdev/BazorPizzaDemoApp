@@ -1,7 +1,7 @@
-using BlazingPizzaDemoApp.Model;
+using BlazorPizzaDemoApp.Model;
 using Microsoft.Extensions.Logging;
 
-namespace BlazingPizzaDemoApp.Services;
+namespace BlazorPizzaDemoApp.Services;
 /// <summary>
 /// Defining Service to add AppState parameters sharing mechanism thru whole app..
 /// </summary>

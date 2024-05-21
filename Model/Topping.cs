@@ -1,4 +1,4 @@
-﻿namespace BlazingPizzaDemoApp.Model;
+﻿namespace BlazorPizzaDemoApp.Model;
 
 public class Topping
 {
