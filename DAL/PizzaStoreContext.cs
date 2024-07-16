@@ -1,6 +1,4 @@
-using BlazorPizzaDemoApp.Model;
-using Humanizer;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using BlazingPizzaDemoApp.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorPizzaDemoApp.DAL;
@@ -13,8 +11,8 @@ public class PizzaStoreContext : DbContext
 
     public DbSet<PizzaSpecial> Specials { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<Pizza> Pizzas {get; set; }
-    public DbSet<Topping> Toppings {get; set; }
+    public DbSet<Pizza> Pizzas { get; set; }
+    public DbSet<Topping> Toppings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

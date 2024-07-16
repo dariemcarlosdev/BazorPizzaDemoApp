@@ -1,4 +1,4 @@
-using BlazorPizzaDemoApp.Model;
+using BlazingPizzaDemoApp.Model;
 using Microsoft.Extensions.Logging;
 
 namespace BlazorPizzaDemoApp.Services;

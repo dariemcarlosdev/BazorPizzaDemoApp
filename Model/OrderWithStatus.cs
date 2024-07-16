@@ -18,7 +18,7 @@ public class OrderWithStatus
     /// <returns></returns>
     public static OrderWithStatus FromOrder(Order order)
     {
-   
+
         string statusText;
         var dispatchTime = order.CreatedTime.Add(PreparationDuration);
 
