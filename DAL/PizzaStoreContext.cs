@@ -1,4 +1,4 @@
-using BlazingPizzaDemoApp.Model;
+using BlazorPizzaDemoApp.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorPizzaDemoApp.DAL;
