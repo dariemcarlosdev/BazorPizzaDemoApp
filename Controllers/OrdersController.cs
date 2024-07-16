@@ -2,7 +2,6 @@
 using BlazingPizzaDemoApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,14 +28,14 @@ namespace BlazingPizzaDemoApp.Controllers
                 .OrderByDescending(o => o.CreatedTime).ToListAsync();
             // This is a LINQ Select query that applies the OrderWithStatus.FromOrder(o) method to each Order object in the orders collection.
             return orders.Select(o => OrderWithStatus.FromOrder(o)).ToHashSet();
-            
+
         }
 
         // GET api/<OrdersController>/5
         [HttpGet("{orderId}")]
         public async Task<ActionResult<OrderWithStatus>> GetOrderWithStatus(int orderId)
         {
-          
+
 
             var order = await dbContext.Orders
                 .Where(o => o.OrderId == orderId)
